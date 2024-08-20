@@ -5,6 +5,7 @@ require("obsidian").setup({
             path = "~/Documents/vyle_obsidian/vyle",
         }
     },
+
     completion = {
         nvim_cmp = true,
         min_chars = 2,
