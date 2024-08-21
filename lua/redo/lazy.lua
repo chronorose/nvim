@@ -55,9 +55,15 @@ require("lazy").setup({
     dependencies = { 'nvim-lua/plenary.nvim' }
     },
 
+    -- and mista oil right aftah him
+    {
+      'stevearc/oil.nvim',
+      opts = {},
+    },
+
     {"epwalsh/obsidian.nvim"},
 
     },
     -- automatically check for plugin updates
-    checker = { enabled = true },
+    checker = { enabled = false },
 })

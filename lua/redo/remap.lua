@@ -16,3 +16,4 @@ nkmap("n", "<leader>cn", "<cmd>ObsidianNew<CR>", { noremap = true, silent = true
 -- keybinds for fast checkboxing
 nkmap("n", "<C-k>", "i- [ ] <Esc>", { noremap = true, silent = true})
 nkmap("i", "<C-k>", "- [ ] ", { noremap = true, silent = true})
+nkmap("n", "<leader>.", "<cmd>Oil<CR>", { noremap = true, silent = true})
