@@ -17,3 +17,5 @@ nkmap("n", "<leader>cn", "<cmd>ObsidianNew<CR>", { noremap = true, silent = true
 nkmap("n", "<C-k>", "i- [ ] <Esc>", { noremap = true, silent = true})
 nkmap("i", "<C-k>", "- [ ] ", { noremap = true, silent = true})
 nkmap("n", "<leader>.", "<cmd>Oil<CR>", { noremap = true, silent = true})
+nkmap("n", "<C-m>", "<cmd>MarkdownPreview<CR>", {noremap = true, silent = true})
+nkmap("n", "<Tab>", "v%", {noremap = true, silent = true})

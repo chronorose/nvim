@@ -49,10 +49,29 @@ require("lazy").setup({
     -- current theme that i use
     { "ntk148v/habamax.nvim", dependencies={ "rktjmp/lush.nvim" } },
 
+    {
+        "sustech-data/wildfire.nvim",
+        event = "VeryLazy",
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
+        config = function()
+            require("wildfire").setup()
+        end,
+    },
+
     -- mr. telescope himself
     {
         'nvim-telescope/telescope.nvim', tag = '0.1.8',
     dependencies = { 'nvim-lua/plenary.nvim' }
+    },
+
+    {
+      "iamcco/markdown-preview.nvim",
+      cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+      build = "cd app && npm install",
+      init = function()
+        vim.g.mkdp_filetypes = { "markdown" }
+      end,
+      ft = { "markdown" },
     },
 
     -- and mista oil right aftah him

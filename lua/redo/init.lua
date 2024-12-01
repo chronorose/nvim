@@ -8,3 +8,7 @@ require("redo.cmp")
 require("redo.telescope")
 require("redo.obsidian")
 require("redo.oil")
+require("redo.metals")
+require("redo.md")
+
+os.execute('rm -r ~/.cache/jdtls')
