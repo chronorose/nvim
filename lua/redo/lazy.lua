@@ -38,6 +38,17 @@ require("lazy").setup({
     -- completion
     {"hrsh7th/nvim-cmp"},
     {"hrsh7th/cmp-nvim-lsp"},
+    -- {
+    --   "scalameta/nvim-metals",
+    --   dependencies = {
+    --     "nvim-lua/plenary.nvim",
+    --   },
+    --   ft = { "scala", "sbt", "java"}
+    --   opts = function()
+    --     local metals_config = require("metals").bare_config()
+    --     metals_config.on_attach = function(client, bufnr)
+    --     end
+    -- },
 
     -- mason, stuff that downloads lsps and everything else automatically
     {"williamboman/mason.nvim"},
