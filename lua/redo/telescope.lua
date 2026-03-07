@@ -1,3 +1,4 @@
+-- TODO: maybe throw this out. I don't use telescope too much.
 local actions = require("telescope.actions")
 require("telescope").setup({
     defaults = {

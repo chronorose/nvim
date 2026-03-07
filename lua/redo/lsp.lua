@@ -1,42 +1,43 @@
-local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
-local lsp_format_on_save = function(bufnr)
-  vim.api.nvim_clear_autocmds({group = augroup, buffer = bufnr})
-  vim.api.nvim_create_autocmd('BufWritePre', {
-    group = augroup,
-    buffer = bufnr,
+vim.lsp.enable({'clangd', 'nil_ls', 'hls', 'jdtls', 'rust_analyzer', 'gopls'})
+
+-- vim.lsp.config('metals', {})
+vim.lsp.config('clangd', {})
+vim.lsp.config('nil_ls', {})
+vim.lsp.config('hls', {})
+vim.lsp.config('jdtls', {})
+vim.lsp.config('gopls', {})
+
+vim.lsp.config('rust_analyzer', {})
+
+vim.diagnostic.config({
+  virtual_text = true,
+  signs = false,
+  underline = true,
+  update_in_insert = false,
+  severity_sort = true,
+})
+
+
+require('lspconfig')['rust_analyzer'].setup({})
+require('lspconfig')['clangd'].setup({})
+require('lspconfig')['nil_ls'].setup({})
+require('lspconfig')['jdtls'].setup({})
+require('lspconfig')['gopls'].setup({})
+
+require('lspconfig')['metals'].setup({
+  init_options = {
+    statusBarProvider = "off"
+  },
+})
+require('lspconfig')['hls'].setup({})
+
+vim.api.nvim_create_autocmd("BufWritePre", {
     callback = function()
-      vim.lsp.buf.format()
-      filter = function(client)
-        return client.name == "null-ls"
-      end
-    end,
-  })
-end
-
-local lsp = require('lsp-zero')
--- lsp.preset("recommended")
-
--- local cmp = require("cmp")
--- local cmp_select = { behavior = cmp.SelectBehavior.Select }
--- local cmp_mappings = lsp.defaults.cmp_mappings({
-local lsp_attach = function(client, bufnr)
-    local opts = {buffer = bufnr}
-    lsp_format_on_save(bufnr)
-    vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
-    vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
-    vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
-    vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
-    vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
-    vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
-    vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
-    vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
-    vim.keymap.set({'n', 'x'}, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
-    vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
-end
-
-
-lsp.extend_lspconfig({
-    sign_text = true,
-    lsp_attach = lsp_attach,
-    capabilities = require('cmp_nvim_lsp').default_capabilities(),
+        local mode = vim.api.nvim_get_mode().mode
+        local filetype = vim.bo.filetype
+        if vim.bo.modified == true and mode == 'n' and filetype ~= "oil" then
+            vim.cmd('lua vim.lsp.buf.format()')
+        else
+        end
+    end
 })

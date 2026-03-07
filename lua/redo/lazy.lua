@@ -37,27 +37,39 @@ require("lazy").setup({
 
     -- completion
     {"hrsh7th/nvim-cmp"},
+
     {"hrsh7th/cmp-nvim-lsp"},
-    -- {
-    --   "scalameta/nvim-metals",
-    --   dependencies = {
-    --     "nvim-lua/plenary.nvim",
-    --   },
-    --   ft = { "scala", "sbt", "java"}
-    --   opts = function()
-    --     local metals_config = require("metals").bare_config()
-    --     metals_config.on_attach = function(client, bufnr)
-    --     end
-    -- },
 
-    -- mason, stuff that downloads lsps and everything else automatically
-    {"williamboman/mason.nvim"},
-    { "williamboman/mason-lspconfig.nvim" },
+    {
+      "scalameta/nvim-metals",
+      ft = { "sbt", "scala" },
+      init = function()
+        vim.opt_global.shortmess:remove "F"
+      end,
+      opts = function()
+        local opts = require("metals").bare_config()
+        opts.init_options.statusBarProvider = "log-message"
+        opts.settings = {
+          ["autoImportBuild"] = "all",
+        }
+        return opts
+      end,
 
-    -- devicons for telescope
+      config = function(self, opts)
+        local nvim_metals_group =
+          vim.api.nvim_create_augroup("nvim-metals", { clear = true })
+        vim.api.nvim_create_autocmd("FileType", {
+          pattern = self.ft,
+          callback = function()
+            require("metals").initialize_or_attach(opts)
+          end,
+          group = nvim_metals_group,
+        })
+      end,
+    },
+
     {'nvim-tree/nvim-web-devicons'},
 
-    -- current theme that i use
     { "ntk148v/habamax.nvim", dependencies={ "rktjmp/lush.nvim" } },
 
     {
@@ -69,31 +81,17 @@ require("lazy").setup({
         end,
     },
 
-    -- mr. telescope himself
     {
         'nvim-telescope/telescope.nvim', tag = '0.1.8',
     dependencies = { 'nvim-lua/plenary.nvim' }
     },
 
     {
-      "iamcco/markdown-preview.nvim",
-      cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-      build = "cd app && npm install",
-      init = function()
-        vim.g.mkdp_filetypes = { "markdown" }
-      end,
-      ft = { "markdown" },
-    },
-
-    -- and mista oil right aftah him
-    {
       'stevearc/oil.nvim',
       opts = {},
     },
 
-    {"epwalsh/obsidian.nvim"},
-
     },
-    -- automatically check for plugin updates
+
     checker = { enabled = false },
 })

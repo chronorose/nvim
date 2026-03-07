@@ -9,13 +9,15 @@ nkmap("n", "k", "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, sile
 nkmap("n", "j", "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
 
 
+-- mayhaps at some point i will use it again. prob not.
 -- keybinds for obsidian.nvim plugin
-nkmap("n", "<leader>dn", "<cmd>ObsidianToday<CR>", { noremap = true, silent = true })
-nkmap("n", "<leader>cn", "<cmd>ObsidianNew<CR>", { noremap = true, silent = true })
+-- nkmap("n", "<leader>dn", "<cmd>ObsidianToday<CR>", { noremap = true, silent = true })
+-- nkmap("n", "<leader>cn", "<cmd>ObsidianNew<CR>", { noremap = true, silent = true })
+
+nkmap("n", "<leader>.", "<cmd>Oil<CR>", { noremap = true, silent = true})
+nkmap("n", "<Tab>", "v%", {noremap = true, silent = true})
 
 -- keybinds for fast checkboxing
-nkmap("n", "<C-k>", "i- [ ] <Esc>", { noremap = true, silent = true})
-nkmap("i", "<C-k>", "- [ ] ", { noremap = true, silent = true})
-nkmap("n", "<leader>.", "<cmd>Oil<CR>", { noremap = true, silent = true})
-nkmap("n", "<C-m>", "<cmd>MarkdownPreview<CR>", {noremap = true, silent = true})
-nkmap("n", "<Tab>", "v%", {noremap = true, silent = true})
+-- nkmap("n", "<C-k>", "i- [ ] <Esc>", { noremap = true, silent = true})
+-- nkmap("i", "<C-k>", "- [ ] ", { noremap = true, silent = true})
+-- nkmap("n", "<C-m>", "<cmd>MarkdownPreview<CR>", {noremap = true, silent = true})
