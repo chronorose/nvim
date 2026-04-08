@@ -1,23 +1,34 @@
 local g = vim.g
 local nkmap = vim.api.nvim_set_keymap
--- mapleaders
+local kmap = vim.keymap.set
+
 g.mapleader = " "
-g.maplocalleader = "\\"
 
 -- bindings for wrapped text
-nkmap("n", "k", "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
-nkmap("n", "j", "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
+kmap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+kmap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
+kmap("n", "<leader>.", "<cmd>Oil<CR>", { silent = true})
+kmap("n", "<Tab>", "v%", {silent = true})
 
--- mayhaps at some point i will use it again. prob not.
--- keybinds for obsidian.nvim plugin
--- nkmap("n", "<leader>dn", "<cmd>ObsidianToday<CR>", { noremap = true, silent = true })
--- nkmap("n", "<leader>cn", "<cmd>ObsidianNew<CR>", { noremap = true, silent = true })
+kmap("n", "<leader>dq", "<cmd>diffoff!<CR>", { silent = true})
 
-nkmap("n", "<leader>.", "<cmd>Oil<CR>", { noremap = true, silent = true})
-nkmap("n", "<Tab>", "v%", {noremap = true, silent = true})
+local function open_tmux_here()
+    local dir
+    if vim.bo.filetype == "oil" then
+        dir = require("oil").get_current_dir()
+    else
+        dir = vim.fn.expand("%:p:h")
+    end
 
--- keybinds for fast checkboxing
--- nkmap("n", "<C-k>", "i- [ ] <Esc>", { noremap = true, silent = true})
--- nkmap("i", "<C-k>", "- [ ] ", { noremap = true, silent = true})
--- nkmap("n", "<C-m>", "<cmd>MarkdownPreview<CR>", {noremap = true, silent = true})
+    vim.system({"tmux", "new-window", "-c", dir}, { text = true }, function(obj)
+        if obj.code ~= 0 then
+            vim.schedule(function()
+                print("Tmux error: " .. obj.stderr)
+            end)
+        end
+    end)
+end
+
+vim.keymap.set("n", "<leader>t", open_tmux_here, { desc = "Open tmux pane in current dir" })
+

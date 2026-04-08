@@ -11,15 +11,14 @@ opt.guicursor = ""
 
 opt.conceallevel = 1
 
+vim.opt.showbreak = ""
+
 -- indentation
 opt.softtabstop = 2
 opt.tabstop = 2
 opt.shiftwidth = 2
 opt.expandtab = true
--- opt.autoindent = true
 opt.smartindent = true
-
-opt.scrolloff = 10
 
 -- opt.wrap = false
 
@@ -33,11 +32,15 @@ opt.undofile = true
 opt.incsearch = true
 opt.hlsearch = false
 
-opt.scrolloff = 18 
+opt.scrolloff = 10
 
 opt.termguicolors = true
 
-cmd("set list listchars=tab:\\ \\")
 --opt.tabline = "ho"
 -- theme init
 cmd("colorscheme habamax.nvim")
+
+vim.api.nvim_set_hl(0, "DiffAdd",    { bg = "#2d3f34", fg = "#a6e3a1" })
+vim.api.nvim_set_hl(0, "DiffDelete", { bg = "#3f2d2d", fg = "#f38ba8" })
+vim.api.nvim_set_hl(0, "DiffChange", { bg = "#2d353f", fg = "#89b4fa" })
+vim.api.nvim_set_hl(0, "DiffText",   { bg = "#3e4451", fg = "#ffffff", bold = true })

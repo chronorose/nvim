@@ -6,5 +6,4 @@ require("redo.lsp")
 require("redo.cmp")
 require("redo.telescope")
 require("redo.oil")
-
 os.execute('rm -r ~/.cache/jdtls')

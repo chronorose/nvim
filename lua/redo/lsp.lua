@@ -1,35 +1,15 @@
-vim.lsp.enable({'clangd', 'nil_ls', 'hls', 'jdtls', 'rust_analyzer', 'gopls'})
-
--- vim.lsp.config('metals', {})
-vim.lsp.config('clangd', {})
-vim.lsp.config('nil_ls', {})
-vim.lsp.config('hls', {})
-vim.lsp.config('jdtls', {})
-vim.lsp.config('gopls', {})
-
-vim.lsp.config('rust_analyzer', {})
+vim.lsp.enable({'clangd', 'nil_ls', 'hls', 'jdtls', 'rust_analyzer', 'gopls', 'dockerls', 'basedpyright' })
 
 vim.diagnostic.config({
   virtual_text = true,
+  virtual_lines = {
+    current_line = true,
+  },
   signs = false,
   underline = true,
   update_in_insert = false,
   severity_sort = true,
 })
-
-
-require('lspconfig')['rust_analyzer'].setup({})
-require('lspconfig')['clangd'].setup({})
-require('lspconfig')['nil_ls'].setup({})
-require('lspconfig')['jdtls'].setup({})
-require('lspconfig')['gopls'].setup({})
-
-require('lspconfig')['metals'].setup({
-  init_options = {
-    statusBarProvider = "off"
-  },
-})
-require('lspconfig')['hls'].setup({})
 
 vim.api.nvim_create_autocmd("BufWritePre", {
     callback = function()
